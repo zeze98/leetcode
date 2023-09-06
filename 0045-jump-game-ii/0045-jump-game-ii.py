@@ -1,11 +1,17 @@
 class Solution:
-    def jump(self, nums: list[int]) -> int:
-        cnt = [0] * len(nums)
-        for i in range(len(nums)):
-            for j in range(1, nums[i] + 1):
-                if i + j >= len(nums):
-                    continue
-                if cnt[i + j] == 0:
-                    cnt[i + j] = cnt[i] + 1
-        
-        return cnt[-1]
+  def jump(self, nums: list[int]) -> int:
+    ans = 0
+    end = 0
+    far = 0
+
+    # Implicit BFS
+    for i in range(len(nums) - 1):
+      far = max(far, i + nums[i])
+      if far >= len(nums) - 1:
+        ans += 1
+        break
+      if i == end:     
+        ans += 1       
+        end = far  
+
+    return ans
