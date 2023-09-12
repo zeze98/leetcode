@@ -3,12 +3,11 @@ class Solution:
         left = 0
         right = len(height) - 1
         answer = 0
-        for _ in range(len(height)):
-            n = min(height[left], height[right])
-            m = right - left
-            answer = max(answer, n * m)
-            if height[left] < height[right] and left +1 < right:
-                left += 1
-            else:
+        while right - left > 0:
+            answer = max(answer, (right - left) * min(height[left], height[right]))
+            
+            if height[left] >= height[right]:
                 right -= 1
+            else:
+                left += 1
         return answer
